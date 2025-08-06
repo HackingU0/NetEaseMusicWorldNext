@@ -2,17 +2,27 @@
 
 [简体中文](README.md) | English | [日本語](README_JA.md)
 
-> Chrome extension for unlocking overseas access to NetEase Music (New Version)
+> Firefox extension for unlocking overseas access to NetEase Music (New Version)
 
 ## Extension URL
 
-[Chrome Web Store](https://chromewebstore.google.com/detail/neteasemusicworld++/ibglohpjgdhkmhmfpdibjgmjjmccafmh)
+Firefox version: Manual installation from source code (see installation method below)
 
 ## Introduction
 
-This is a Chrome extension that helps overseas users access NetEase Music. This project is an optimization based on the previous two versions, updated to meet Chrome's latest extension requirements.
+This is a Firefox extension that helps overseas users access NetEase Music. This project is converted from the Chrome version to Firefox extension format, using Manifest V2 for better compatibility.
 
-As the original authors are no longer maintaining their versions, and I personally need to use NetEase Music overseas, I've updated this extension to help more overseas users.
+As the original authors are no longer maintaining their versions, and I personally need to use NetEase Music overseas, I've updated this extension and converted it to Firefox format to help more overseas users.
+
+## Firefox Installation Method
+
+1. Download all files from this repository
+2. Open Firefox browser
+3. Type `about:debugging` in the address bar
+4. Click "This Firefox"
+5. Click "Load Temporary Add-on"
+6. Select the downloaded `manifest.json` file
+7. The extension will be loaded into Firefox
 
 ## Version History
 
@@ -21,15 +31,17 @@ As the original authors are no longer maintaining their versions, and I personal
 
 ## Major Updates
 
-1. Adopting Chrome Extension Manifest V3
-   - Compliant with Chrome's latest extension specifications
-   - No more extension disabled warnings
-   - Better performance and security
+1. Converted to Firefox Extension Format
+   - Using Manifest V2 for Firefox compatibility
+   - Replaced declarativeNetRequest with webRequest API
+   - Using browser API instead of Chrome-specific APIs
+   - Supports Firefox 57+ versions
 
 2. Optimized Implementation
-   - Using declarativeNetRequest instead of traditional request interception
+   - Using webRequest API for request interception and modification
    - Simplified to single mode for intuitive operation
    - No system hosts file modification needed
+   - Maintains same functionality as original Chrome version
 
 ## Usage
 

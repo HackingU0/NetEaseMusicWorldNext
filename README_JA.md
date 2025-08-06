@@ -2,17 +2,27 @@
 
 [简体中文](README.md) | [English](README_EN.md) | 日本語
 
-> NetEase Musicの海外アクセス制限を解除するChrome拡張機能（新バージョン）
+> NetEase Musicの海外アクセス制限を解除するFirefox拡張機能（新バージョン）
 
 ## 拡張機能のURL
 
-[Chrome ウェブストア](https://chromewebstore.google.com/detail/neteasemusicworld++/ibglohpjgdhkmhmfpdibjgmjjmccafmh)
+Firefoxバージョン：ソースコードから手動インストール（下記インストール方法を参照）
 
 ## 概要
 
-これは海外ユーザーがNetEase MusicにアクセスできるようにするChrome拡張機能です。本プロジェクトは、前の2つのバージョンをベースに、Chromeの最新の拡張機能要件に合わせて最適化されています。
+これは海外ユーザーがNetEase MusicにアクセスできるようにするFirefox拡張機能です。本プロジェクトは、ChromeバージョンからFirefox拡張機能形式に変換し、より良い互換性のためにManifest V2を使用しています。
 
-オリジナルの作者がメンテナンスを終了し、私自身も海外でNetEase Musicを使用する必要があるため、より多くの海外ユーザーのためにこの拡張機能を更新しました。
+オリジナルの作者がメンテナンスを終了し、私自身も海外でNetEase Musicを使用する必要があるため、この拡張機能を更新し、Firefox形式に変換して、より多くの海外ユーザーのために提供しています。
+
+## Firefoxインストール方法
+
+1. このリポジトリのすべてのファイルをダウンロード
+2. Firefoxブラウザを開く
+3. アドレスバーに `about:debugging` と入力
+4. 「このFirefox」をクリック
+5. 「一時的なアドオンを読み込む」をクリック
+6. ダウンロードした `manifest.json` ファイルを選択
+7. 拡張機能がFirefoxに読み込まれます
 
 ## バージョン履歴
 
@@ -21,15 +31,17 @@
 
 ## 主な更新内容
 
-1. Chrome Extension Manifest V3の採用
-   - Chromeの最新の拡張機能仕様に準拠
-   - 拡張機能の無効化警告が表示されない
-   - より良いパフォーマンスとセキュリティ
+1. Firefox拡張機能形式への変換
+   - Firefox互換性のためのManifest V2使用
+   - declarativeNetRequestをwebRequest APIに置き換え
+   - Chrome固有のAPIの代わりにbrowser APIを使用
+   - Firefox 57+バージョンをサポート
 
 2. 機能の最適化
-   - 従来のリクエスト傍受の代わりにdeclarativeNetRequestを使用
+   - リクエストの傍受と変更にwebRequest APIを使用
    - 直感的な操作のための単一モード
    - システムのhostsファイルの変更が不要
+   - 元のChromeバージョンと同じ機能を維持
 
 ## 使用方法
 
