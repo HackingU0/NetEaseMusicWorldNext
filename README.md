@@ -2,20 +2,27 @@
 
 简体中文 | [English](README_EN.md) | [日本語](README_JA.md)
 
-> 解锁网易云音乐网页版海外访问限制的 Chrome 扩展程序（新版）
+> 解锁网易云音乐网页版海外访问限制的 Firefox 扩展程序（新版）
 
 ## 插件地址
 
-[Chrome 网上应用商店](https://chromewebstore.google.com/detail/neteasemusicworld++/ibglohpjgdhkmhmfpdibjgmjjmccafmh)
+Firefox 版本：可通过源码手动安装（见下方安装方法）
 
 ## 简介
 
-这是一个帮助海外用户访问网易云音乐的 Chrome 扩展程序。本项目是在前两个版本的基础上，针对 Chrome 最新版本的扩展要求进行了优化。
+这是一个帮助海外用户访问网易云音乐的 Firefox 扩展程序。本项目是在 Chrome 版本的基础上，转换为 Firefox 扩展格式，使用 Manifest V2 以确保更好的兼容性。
 
-由于原作者不再维护，且本人在海外经常需要使用网易云音乐，因此对这个扩展进行了更新，方便更多海外用户使用。
+由于原作者不再维护，且本人在海外经常需要使用网易云音乐，因此对这个扩展进行了更新，并转换为 Firefox 格式，方便更多海外用户使用。
 
+## Firefox 安装方法
 
-
+1. 下载本仓库的所有文件
+2. 打开 Firefox 浏览器
+3. 在地址栏输入 `about:debugging`
+4. 点击"此 Firefox"
+5. 点击"临时载入附加组件"
+6. 选择下载的 `manifest.json` 文件
+7. 扩展程序将被加载到 Firefox 中
 
 ## 历史版本
 
@@ -24,15 +31,17 @@
 
 ## 主要更新
 
-1. 采用 Chrome Extension Manifest V3
-   - 符合 Chrome 最新扩展规范
-   - 不会出现扩展程序被禁用的提示
-   - 提供更好的性能和安全性
+1. 转换为 Firefox 扩展格式
+   - 使用 Manifest V2 以确保 Firefox 兼容性
+   - 替换 declarativeNetRequest 为 webRequest API
+   - 使用 browser API 替代 Chrome 特定 API
+   - 支持 Firefox 57+ 版本
 
 2. 优化功能实现
-   - 使用 declarativeNetRequest 替代传统的请求拦截
+   - 使用 webRequest API 进行请求拦截和修改
    - 简化为单一模式，操作更直观
    - 无需修改系统 hosts 文件
+   - 保持与原 Chrome 版本相同的功能
 
 ## 使用方法
 
