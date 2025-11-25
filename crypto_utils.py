@@ -18,20 +18,14 @@ class NetEaseCrypto:
     # Constants for encryption
     IV = b'0102030405060708'
     PRESET_KEY = b'0CoJUm6Qyw8W8jud'
-    PUBLIC_KEY = (
-        '010001'
-    )
+    PUBLIC_KEY = '010001'
+    # Correct RSA modulus for NetEase Cloud Music weapi encryption
     MODULUS = (
-        '00e0b509f6259df8e7bf1c64f1d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11'
-        'd9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9'
-        'f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e'
-    )
-    
-    # Real modulus from NetEase
-    REAL_MODULUS = (
-        '00e0b509f6259df8e7b1bcd5f1c64f1d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e'
-        '4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e'
-        '0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f11d9f73e4e0f'
+        '00e0b509f6259df8642dbc35662901477df22677ec152b5ff68ace615bb7'
+        'b725152b3ab17a876aea8a5aa76d2e417629ec4ee341f56135fccf695280'
+        '104e0312ecbda92557c93870114af6c9d05c4f7f0c3685b7a46bee255932'
+        '575cce10b424d813cfe4875d3e82047b97ddef52741d546b8e289dc6935b'
+        '3ece0462db0a22b8e7'
     )
 
     @staticmethod
@@ -77,10 +71,7 @@ class NetEaseCrypto:
         enc_sec_key = NetEaseCrypto.rsa_encrypt(
             secret_key,
             NetEaseCrypto.PUBLIC_KEY,
-            '00e0b509f6259df8e7bc623ed8b6fc62f6c0bfd7b83cc52d6b'
-            'daf6a6a5fbed1d89aebb60a9a24b5cd92e8f2d01d1c6c67b4e'
-            'd0c0de5c57f4b8f8b2f1d5a4fbbcc7b9f3b5f2b7a4c8d6e1f9'
-            'a7b3c1f5d9e7f4b8a2c6f0d4e8b1a5f9c3d7eb5f2f6a0c4d8b'
+            NetEaseCrypto.MODULUS
         )
         
         return {

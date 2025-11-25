@@ -95,6 +95,9 @@ class NetEaseClient:
             response = self.session.post(url, data=encrypted)
             response.raise_for_status()
             return response.json()
+        except json.JSONDecodeError as e:
+            logger.error(f'Failed to decode JSON response: {e}')
+            return {'code': -1, 'message': f'Invalid JSON response: {e}'}
         except requests.RequestException as e:
             logger.error(f'Request failed: {e}')
             return {'code': -1, 'message': str(e)}
@@ -119,6 +122,9 @@ class NetEaseClient:
                 response = self.session.get(url)
             response.raise_for_status()
             return response.json()
+        except json.JSONDecodeError as e:
+            logger.error(f'Failed to decode JSON response: {e}')
+            return {'code': -1, 'message': f'Invalid JSON response: {e}'}
         except requests.RequestException as e:
             logger.error(f'Request failed: {e}')
             return {'code': -1, 'message': str(e)}
