@@ -208,11 +208,15 @@ class NetEaseClient:
         print('Please scan the QR code with NetEase Music app\n')
         
         # Also print QR code to terminal
-        qr_url = f'https://music.163.com/login?codekey={qr_key}'
-        qr = qrcode.QRCode(box_size=1, border=1)
-        qr.add_data(qr_url)
-        qr.make(fit=True)
-        qr.print_ascii(invert=True)
+        try:
+            qr_url = f'https://music.163.com/login?codekey={qr_key}'
+            qr = qrcode.QRCode(box_size=1, border=1)
+            qr.add_data(qr_url)
+            qr.make(fit=True)
+            qr.print_ascii(invert=True)
+        except Exception as e:
+            logger.warning(f'Could not print QR code to terminal: {e}')
+            print('(Terminal QR code not available, please use the saved image)')
         
         # Wait for scan
         start_time = time.time()
