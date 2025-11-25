@@ -1,44 +1,152 @@
-# NetEaseMusicWorld++
+# NetEaseMusicWorld
 
 [简体中文](README.md) | English | [日本語](README_JA.md)
 
-> Chrome extension for unlocking overseas access to NetEase Music (New Version)
+> A Python tool to help overseas users access NetEase Cloud Music with QR code login and daily automatic IP refresh
 
-## Extension URL
+## ✨ Features
 
-[Chrome Web Store](https://chromewebstore.google.com/detail/neteasemusicworld++/ibglohpjgdhkmhmfpdibjgmjjmccafmh)
+- 🔐 **QR Code Login** - Login by scanning QR code with NetEase Music APP
+- 🌏 **Overseas Access** - Automatically adds China IP header to bypass regional restrictions
+- ⏰ **Auto Refresh** - Daily automatic IP session refresh to maintain access
+- 📝 **Daily Check-in** - Automatically perform PC and mobile check-in tasks
+- 🔄 **Daemon Mode** - Can run continuously in the background
 
-## Introduction
+## 📦 Installation
 
-This is a Chrome extension that helps overseas users access NetEase Music. This project is an optimization based on the previous two versions, updated to meet Chrome's latest extension requirements.
+### Requirements
 
-As the original authors are no longer maintaining their versions, and I personally need to use NetEase Music overseas, I've updated this extension to help more overseas users.
+- Python 3.8 or higher
+- pip package manager
 
-## Version History
+### Installation Steps
 
-- Version 1: [acgotaku/NetEaseMusicWorld](https://github.com/acgotaku/NetEaseMusicWorld)
-- Version 2: [nondanee/NetEaseMusicWorldPlus](https://github.com/nondanee/NetEaseMusicWorldPlus)
+```bash
+# Clone the repository
+git clone https://github.com/HackingU0/NetEaseMusicWorldNext.git
+cd NetEaseMusicWorldNext
 
-## Major Updates
+# Create virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# or
+venv\Scripts\activate  # Windows
 
-1. Adopting Chrome Extension Manifest V3
-   - Compliant with Chrome's latest extension specifications
-   - No more extension disabled warnings
-   - Better performance and security
+# Install dependencies
+pip install -r requirements.txt
+```
 
-2. Optimized Implementation
-   - Using declarativeNetRequest instead of traditional request interception
-   - Simplified to single mode for intuitive operation
-   - No system hosts file modification needed
+## 🚀 Usage
 
-## Usage
+### 1. QR Code Login
 
-1. After installation, click the extension icon in the toolbar to toggle enable/disable
-2. Grey icon indicates disabled status
-3. Red icon indicates enabled status
+```bash
+python main.py login
+```
 
-## Privacy Notice
+This will generate a QR code image and display it in terminal. Scan with NetEase Music APP to login.
 
-- No user data collection
-- Only modifies necessary network requests
-- All code is open source 
+### 2. Check Login Status
+
+```bash
+python main.py status
+```
+
+### 3. Manually Refresh IP Session
+
+```bash
+python main.py refresh
+```
+
+### 4. Daemon Mode (Recommended)
+
+```bash
+# Default: refresh every 24 hours
+python main.py daemon
+
+# Custom refresh interval (e.g., every 12 hours)
+python main.py daemon -i 12
+```
+
+### Command Line Arguments
+
+```
+usage: main.py [-h] [-i INTERVAL] [-c COOKIES] {login,refresh,status,daemon}
+
+NetEase Music World - Help overseas users access NetEase Music
+
+positional arguments:
+  {login,refresh,status,daemon}
+                        Command to execute
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INTERVAL, --interval INTERVAL
+                        Refresh interval in hours for daemon mode (default: 24)
+  -c COOKIES, --cookies COOKIES
+                        Cookie file path (default: cookies.json)
+```
+
+## 📁 Project Structure
+
+```
+NetEaseMusicWorldNext/
+├── main.py              # Main entry point
+├── netease_client.py    # NetEase Music API client
+├── crypto_utils.py      # Encryption utilities
+├── config.json          # Configuration file
+├── requirements.txt     # Python dependencies
+├── cookies.json         # Login credentials (auto-generated, ignored)
+└── README.md            # Documentation
+```
+
+## 🔧 Configuration
+
+Configuration file `config.json`:
+
+```json
+{
+    "cookie_file": "cookies.json",
+    "refresh_interval_hours": 24,
+    "china_ip": "211.161.244.70"
+}
+```
+
+- `cookie_file`: Path to cookie storage file
+- `refresh_interval_hours`: Auto refresh interval in hours
+- `china_ip`: China IP address used in request headers
+
+## 🐳 Docker Deployment (Optional)
+
+```bash
+# Build image
+docker build -t netease-music-world .
+
+# Run container
+docker run -d --name netease-music \
+  -v $(pwd)/cookies.json:/app/cookies.json \
+  netease-music-world daemon
+```
+
+## ⚠️ Notes
+
+1. First-time users must run `python main.py login` to login
+2. The `cookies.json` file contains login credentials, keep it secure
+3. Daemon mode is recommended to maintain login status
+4. This project is for learning and educational purposes only
+
+## 📜 Version History
+
+This project evolved from:
+
+- Version 1: [acgotaku/NetEaseMusicWorld](https://github.com/acgotaku/NetEaseMusicWorld) - Chrome Extension
+- Version 2: [nondanee/NetEaseMusicWorldPlus](https://github.com/nondanee/NetEaseMusicWorldPlus) - Chrome Extension
+- Current: Python implementation with automation support
+
+## 🤝 Contributing
+
+Issues and Pull Requests are welcome!
+
+## 📄 License
+
+This project is licensed under the MIT License 

@@ -1,47 +1,152 @@
-# NetEaseMusicWorld++
+# NetEaseMusicWorld
 
 简体中文 | [English](README_EN.md) | [日本語](README_JA.md)
 
-> 解锁网易云音乐网页版海外访问限制的 Chrome 扩展程序（新版）
+> 帮助海外用户访问网易云音乐的 Python 工具，支持二维码登录和每日自动刷新 IP
 
-## 插件地址
+## ✨ 功能特点
 
-[Chrome 网上应用商店](https://chromewebstore.google.com/detail/neteasemusicworld++/ibglohpjgdhkmhmfpdibjgmjjmccafmh)
+- 🔐 **二维码登录** - 使用网易云音乐 APP 扫码登录
+- 🌏 **海外访问** - 自动添加中国 IP 头部，解除海外访问限制
+- ⏰ **自动刷新** - 每日自动刷新 IP 会话，保持访问畅通
+- 📝 **每日签到** - 自动完成 PC 端和移动端签到任务
+- 🔄 **守护进程模式** - 可在后台持续运行
 
-## 简介
+## 📦 安装
 
-这是一个帮助海外用户访问网易云音乐的 Chrome 扩展程序。本项目是在前两个版本的基础上，针对 Chrome 最新版本的扩展要求进行了优化。
+### 环境要求
 
-由于原作者不再维护，且本人在海外经常需要使用网易云音乐，因此对这个扩展进行了更新，方便更多海外用户使用。
+- Python 3.8 或更高版本
+- pip 包管理器
 
+### 安装步骤
 
+```bash
+# 克隆仓库
+git clone https://github.com/HackingU0/NetEaseMusicWorldNext.git
+cd NetEaseMusicWorldNext
 
+# 创建虚拟环境（推荐）
+python -m venv venv
+source venv/bin/activate  # Linux/macOS
+# 或
+venv\Scripts\activate  # Windows
 
-## 历史版本
+# 安装依赖
+pip install -r requirements.txt
+```
 
-- 第一版：[acgotaku/NetEaseMusicWorld](https://github.com/acgotaku/NetEaseMusicWorld)
-- 第二版：[nondanee/NetEaseMusicWorldPlus](https://github.com/nondanee/NetEaseMusicWorldPlus)
+## 🚀 使用方法
 
-## 主要更新
+### 1. 二维码登录
 
-1. 采用 Chrome Extension Manifest V3
-   - 符合 Chrome 最新扩展规范
-   - 不会出现扩展程序被禁用的提示
-   - 提供更好的性能和安全性
+```bash
+python main.py login
+```
 
-2. 优化功能实现
-   - 使用 declarativeNetRequest 替代传统的请求拦截
-   - 简化为单一模式，操作更直观
-   - 无需修改系统 hosts 文件
+运行后会生成二维码图片并在终端显示，使用网易云音乐 APP 扫描登录。
 
-## 使用方法
+### 2. 检查登录状态
 
-1. 安装扩展后，点击工具栏的扩展图标即可切换启用/禁用状态
-2. 灰色图标表示禁用状态
-3. 红色图标表示启用状态
+```bash
+python main.py status
+```
 
-## 隐私说明
+### 3. 手动刷新 IP 会话
 
-- 不收集任何用户数据
-- 仅修改必要的网络请求
-- 所有代码开源可见
+```bash
+python main.py refresh
+```
+
+### 4. 守护进程模式（推荐）
+
+```bash
+# 默认每 24 小时刷新一次
+python main.py daemon
+
+# 自定义刷新间隔（例如每 12 小时）
+python main.py daemon -i 12
+```
+
+### 命令行参数
+
+```
+usage: main.py [-h] [-i INTERVAL] [-c COOKIES] {login,refresh,status,daemon}
+
+NetEase Music World - Help overseas users access NetEase Music
+
+positional arguments:
+  {login,refresh,status,daemon}
+                        Command to execute
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INTERVAL, --interval INTERVAL
+                        Refresh interval in hours for daemon mode (default: 24)
+  -c COOKIES, --cookies COOKIES
+                        Cookie file path (default: cookies.json)
+```
+
+## 📁 项目结构
+
+```
+NetEaseMusicWorldNext/
+├── main.py              # 主程序入口
+├── netease_client.py    # 网易云音乐 API 客户端
+├── crypto_utils.py      # 加密工具
+├── config.json          # 配置文件
+├── requirements.txt     # Python 依赖
+├── cookies.json         # 登录凭证（自动生成，已忽略）
+└── README.md            # 说明文档
+```
+
+## 🔧 配置说明
+
+配置文件 `config.json`:
+
+```json
+{
+    "cookie_file": "cookies.json",
+    "refresh_interval_hours": 24,
+    "china_ip": "211.161.244.70"
+}
+```
+
+- `cookie_file`: Cookie 存储文件路径
+- `refresh_interval_hours`: 自动刷新间隔（小时）
+- `china_ip`: 用于请求头的中国 IP 地址
+
+## 🐳 Docker 部署（可选）
+
+```bash
+# 构建镜像
+docker build -t netease-music-world .
+
+# 运行容器
+docker run -d --name netease-music \
+  -v $(pwd)/cookies.json:/app/cookies.json \
+  netease-music-world daemon
+```
+
+## ⚠️ 注意事项
+
+1. 首次使用需要先运行 `python main.py login` 进行登录
+2. `cookies.json` 文件包含登录凭证，请妥善保管
+3. 建议使用守护进程模式保持登录状态
+4. 本项目仅供学习交流使用
+
+## 📜 历史版本
+
+本项目基于以下项目演变而来：
+
+- 第一版：[acgotaku/NetEaseMusicWorld](https://github.com/acgotaku/NetEaseMusicWorld) - Chrome 扩展
+- 第二版：[nondanee/NetEaseMusicWorldPlus](https://github.com/nondanee/NetEaseMusicWorldPlus) - Chrome 扩展
+- 当前版本：Python 实现，支持自动化运行
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！
+
+## 📄 许可证
+
+本项目采用 MIT 许可证

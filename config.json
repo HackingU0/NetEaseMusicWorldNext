@@ -1,0 +1,13 @@
+{
+    "cookie_file": "cookies.json",
+    "refresh_interval_hours": 24,
+    "china_ip": "211.161.244.70",
+    "netease_api": {
+        "base_url": "https://music.163.com",
+        "qr_create": "/weapi/login/qrcode/unikey",
+        "qr_check": "/weapi/login/qrcode/client/login",
+        "user_account": "/api/nuser/account/get",
+        "daily_task": "/weapi/point/dailyTask"
+    },
+    "log_file": "netease_music.log"
+}
