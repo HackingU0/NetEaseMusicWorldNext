@@ -226,6 +226,7 @@ class NetEaseClient:
         
         # Wait for scan
         start_time = time.time()
+        scanned_message_shown = False
         while time.time() - start_time < timeout:
             status = self.check_qr_status(qr_key)
             code = status.get('code')
@@ -236,8 +237,12 @@ class NetEaseClient:
             elif code == 801:
                 print('.', end='', flush=True)
             elif code == 802:
-                print('\n扫描成功，请在手机上确认登录...')
-                print('Scanned! Please confirm on your phone...')
+                if not scanned_message_shown:
+                    print('\n扫描成功，请在手机上确认登录...')
+                    print('Scanned! Please confirm on your phone...')
+                    scanned_message_shown = True
+                else:
+                    print('.', end='', flush=True)
             elif code == 803:
                 print('\n登录成功！')
                 print('Login successful!')
