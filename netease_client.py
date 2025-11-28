@@ -54,6 +54,9 @@ class NetEaseClient:
             'Content-Type': 'application/x-www-form-urlencoded',
             'X-Real-IP': self.CHINA_IP,
         })
+        # Set initial cookies required for login
+        self.session.cookies.set('__remember_me', 'true')
+        self.session.cookies.set('os', 'pc')
     
     def _load_cookies(self):
         """Load cookies from file if exists."""
@@ -89,6 +92,9 @@ class NetEaseClient:
             JSON response as dictionary
         """
         url = f'{self.BASE_URL}/weapi{endpoint}'
+        # Add csrf_token to request data
+        csrf_token = self.session.cookies.get('__csrf', '')
+        data['csrf_token'] = csrf_token
         encrypted = NetEaseCrypto.encrypt_request(json.dumps(data))
         
         try:
